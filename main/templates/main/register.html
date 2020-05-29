@@ -1,0 +1,28 @@
+{% extends 'main/header.html' %}
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        <!-- <ul>
+            <li>
+                <label for="usr_name">Username:</label>
+                <input type="text" id='usr_name' name="usr_name">
+            </li>
+            <li>
+                <label for="mail">E-mail:</label>
+                <input type="email" id="mail" name="user_email">
+            </li>
+            <li>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+            </li>
+            <br>
+            <li>
+                <input type="submit" value="Register!" class="btn btn-outline-info">
+            </li>
+
+        </ul> -->
+        {{form.as_p}}
+        <button type="submit" class="btn btn-outline-info">Submit</button>
+        <p>If you already have an account <a href="/main/login"><strong>Login</strong></a> instead</p>
+    </form>
+{% endblock %}

@@ -1,0 +1,30 @@
+<head>
+    {% load static %}
+    <meta name="author" content="dipshit">
+    <title>ChatBot(Hopefully)</title>
+    <!-- Compiled and minified CSS -->
+    <link href="{% static 'main/css/materialize.css' %}" rel="stylesheet">
+    <!--Icons-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Compressed CSS -->
+    <!-- <link href="{% static 'main/css/foundation.css' %}" rel="stylesheet"> -->
+    <!-- Compressed JavaScript -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script> -->
+  </head>
+  <body>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="/main/" class="brand-logo">My App</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          {% include 'main/includes/navbar_items.html' %}
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    {% include 'main/includes/messaging.html' %}
+  </body>
