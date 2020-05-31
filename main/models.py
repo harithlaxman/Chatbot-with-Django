@@ -10,13 +10,15 @@ from django.contrib.auth.models import AbstractUser
 #         return self.email_id
 
 class User(AbstractUser):
-    pass
+	# friend = models.ManyToManyField(FriendDetails, blank=True)
+	# friend = models.ForeignKey(FriendDetails, default=1, on_delete=models.SET_DEFAULT)
+	pass
 
 class FriendDetails(models.Model):
     friend_name = models.CharField(max_length=255)
     friend_user_name = models.CharField(max_length=255)
     rating = models.IntegerField()
-    user = models.ForeignKey(User, default=1, on_delete=models.SET_DEFAULT)
+    user = models.ManyToManyField(User, blank=True)
     class Meta:
         verbose_name_plural = "Friend_Details"
     def __str__(self):

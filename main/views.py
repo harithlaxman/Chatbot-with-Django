@@ -22,32 +22,36 @@ def refresh(request, user_name):
     detail.save()
     return redirect("/main/")
 def home(request):
-    details = {}
     if request.user.is_authenticated:
         user = request.user
-        details = FriendDetails.objects.filter(user=user)
     if request.method == "POST":
         form = UserName(request.POST)
         if form.is_valid():
             user_name = form.cleaned_data.get('user_name')
-            url = f"https://www.codechef.com/users/{user_name}"
-            r = requests.get(url)
-            soup = BeautifulSoup(r.content, 'html5lib')
-            name = str(soup.findAll('h2')[1]).strip('<h2/>')
-            table = soup.find('div', attrs = {'class':'rating-number'})
-            if table is not None:
-                table = table.text
-                detail = FriendDetails(friend_name=name, friend_user_name=user_name, rating=table)
-                detail.user = user
-                detail.save()
-                return(render(request, 'main/home.html', context={'details':details,'form':form}))
+            bro = FriendDetails.objects.filter(friend_user_name=user_name).first()
+            if bro is not None:
+                bro.user.add(user)
+                bro = FriendDetails.objects.filter(friend_user_name=user_name).values()
+                return(render(request, 'main/home.html', context={'bro':user.frienddetails_set.all(),'form':form}))
             else:
-                messages.error(request, f"{user_name} is not a valid Username")
+                url = f"https://www.codechef.com/users/{user_name}"
+                r = requests.get(url)
+                soup = BeautifulSoup(r.content, 'html5lib')
+                name = str(soup.findAll('h2')[1]).strip('<h2/>')
+                table = soup.find('div', attrs = {'class':'rating-number'})
+                if table is not None:
+                    table = table.text
+                    bro = FriendDetails(friend_name=name, friend_user_name=user_name, rating=table)
+                    bro.save()
+                    bro.user.add(user)
+                    return(render(request, 'main/home.html', context={'bro':user.frienddetails_set.all(),'form':form}))
+                else:
+                    messages.error(request, f"{user_name} is not a valid Username")
     form = UserName
     # email = details.objects.all
     # template = loader.get_template('/index.html')
     # context = {'email': email}
-    return render(request, 'main/home.html', {'form':form, 'details':details})
+    return render(request, 'main/home.html', {'form':form, 'bro':user.frienddetails_set.all()})
 
 def register(request):
     if request.method == 'POST':
