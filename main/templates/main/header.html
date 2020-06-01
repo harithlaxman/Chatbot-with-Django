@@ -12,30 +12,11 @@
     <!-- <link href="{% static 'main/css/foundation.css' %}" rel="stylesheet"> -->
     <!-- Compressed JavaScript -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script> -->
-    <style>
-      /* body{
-        background-color: #ece9e6;
-        background-image: -webkit-linear-gradient(62deg, #ece9e6 0%, #ffffff 100%);
-        background-image: -moz-linear-gradient(62deg, #ece9e6 0%, #ffffff 100%);
-        background-image: -o-linear-gradient(62deg, #ece9e6 0%, #ffffff 100%);
-        background-image: linear-gradient(62deg, #ece9e6 0%, #ffffff 100%);
-      } */
-      /* nav{
-        background-color: #232526;
-        background-image: -webkit-linear-gradient(62deg, #232526 0%, #414345 100%);
-        background-image: -moz-linear-gradient(62deg, #232526 0%, #414345 100%);
-        background-image: -o-linear-gradient(62deg, #232526 0%, #414345 100%);
-        background-image: linear-gradient(62deg, #232526 0%, #414345 100%);
-      } */
-      /* button{
-        border-radius: 25px;
-        background-color: #232526;
-        background-image: -webkit-linear-gradient(62deg, #232526 0%, #414345 100%);
-        background-image: -moz-linear-gradient(62deg, #232526 0%, #414345 100%);
-        background-image: -o-linear-gradient(62deg, #232526 0%, #414345 100%);
-        background-image: linear-gradient(62deg, #232526 0%, #414345 100%);
-      } */
-    </style>
+    <script>document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.fixed-action-btn');
+      var instances = M.FloatingActionButton.init(elems, {direction: 'left'});
+    });
+  </script>
   </head>
   <body style="background-color:#333333;">
     <nav>

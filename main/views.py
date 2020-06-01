@@ -8,17 +8,28 @@ from .models import FriendDetails
 import requests
 from bs4 import BeautifulSoup
 # Create your   views here.
+def del_request(request, user_name):
+    if request.user.is_authenticated:
+        user = request.user
+    bro = FriendDetails.objects.get(friend_user_name=user_name)
+    bro.user.remove(user)
+    return redirect("/main/")
 def refresh(request, user_name):
     url = f"https://www.codechef.com/users/{user_name}"
     r = requests.get(url)
     soup = BeautifulSoup(r.content, 'html5lib')
     name = str(soup.findAll('h2')[1]).strip('<h2/>')
     table = soup.find('div', attrs = {'class':'rating-number'})
+    rat = soup.find('span', attrs={'class':'rating'})
+    num = int(rat.text[0])
+    rat = (rat.text[1] + " ")*num
+    print(rat)
     if table is not None:
         table = table.text
     detail = FriendDetails.objects.get(friend_user_name=user_name)
     detail.friend_name = name
     detail.rating = table
+    detail.stars = rat
     detail.save()
     return redirect("/main/")
 def home(request):
@@ -41,9 +52,12 @@ def home(request):
                 soup = BeautifulSoup(r.content, 'html5lib')
                 name = str(soup.findAll('h2')[1]).strip('<h2/>')
                 table = soup.find('div', attrs = {'class':'rating-number'})
+                rat = soup.find('span', attrs={'class':'rating'})
+                num = int(rat.text[0])
+                rat = (rat.text[1] + " ")*num
                 if table is not None:
                     table = table.text
-                    bro = FriendDetails(friend_name=name, friend_user_name=user_name, rating=table)
+                    bro = FriendDetails(friend_name=name, friend_user_name=user_name, rating=table, stars=rat)
                     bro.save()
                     bro.user.add(user)
                     return(render(request, 'main/home.html', context={'bro':user.frienddetails_set.all(),'form':form}))

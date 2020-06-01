@@ -18,6 +18,7 @@ class FriendDetails(models.Model):
     friend_name = models.CharField(max_length=255)
     friend_user_name = models.CharField(max_length=255)
     rating = models.IntegerField()
+    stars = models.CharField(max_length=255, default="no stars")
     user = models.ManyToManyField(User, blank=True)
     class Meta:
         verbose_name_plural = "Friend_Details"

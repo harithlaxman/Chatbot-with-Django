@@ -1,39 +1,54 @@
 {% extends 'main/header.html' %}
 {% block content %}
   {% if user.is_authenticated %}
-  <div class="container">
-    <form method="POST">
-      {% csrf_token %}
-      {{form.as_p}}
-      <button type="submit" class="btn">Add Friend</button>
-    </form>
-      {% if bro %}
-        <div class="row">
-          {% for i in bro %}
-          <div class="col s12 m4">
-            <div class="card grey-mine hoverable">
-              <div class="card-content bg-mine-text">
-                <span class="card-title">{{i.friend_name}}</span>
-                <ul>
-                  <li>
-                    Username : {{i.friend_user_name}}
-                  </li>
-                  <li>
-                    Rating : {{i.rating}}
-                  </li>
-                </ul>
-                <a href="/main/refresh/{{i.friend_user_name}}" style="color: #333333;">
-                <i class="material-icons" style="margin-left: 93%;">refresh</i>
-                </a>
+    <div class="container">
+      <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn">Add Friend</button>
+      </form>
+        {% if bro %}
+          <div class="row">
+            {% for i in bro %}
+              <div class="col s12 m4">
+                <div class="card grey-mine hoverable">
+                  <div class="card-content bg-mine-text" style="text-align: center;">
+                    <span class="card-title">{{i.friend_name}}</span>
+                    <p><big>{{i.stars}}</big></p>
+                    <ul>
+                      <li>
+                        <strong>Username :</strong> {{i.friend_user_name}}
+                      </li>
+                      <li>
+                        <strong>Rating :</strong> {{i.rating}}
+                      </li>
+                      <br>
+                      <li>
+                        <ul style="list-style-type: none; padding: 5;">
+                          <li style="float: right;">
+                            <a href="/main/del_request/{{i.friend_user_name}}" style="color: #333333;">
+                            <i class="material-icons" style="margin-left: 30%;">remove</i>
+                            </a>
+                          </li>
+                          <li style="float: right;">
+                            <a href="/main/refresh/{{i.friend_user_name}}" style="color: #333333;">
+                            <i class="material-icons">refresh</i>
+                            </a>
+                          </li>
+                          <li style="float: right;">
+                            <a href='https://www.codechef.com/users/{{i.friend_user_name}}' target="_blank" style="color: #333333;">
+                              <i class="material-icons" style="margin-left: -35%;">details</i>
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
-              <!-- <div class="card-action">
-                <a href="/main/refresh/{{i.friend_user_name}}"><i class="material-icons">refresh</i></a>
-              </div> -->
-            </div>
+            {% endfor %}
           </div>
-          {% endfor %}
-        </div>
-      {% endif %}
-  </div>
+        {% endif %}
+    </div>
   {% endif %}
 {% endblock %}

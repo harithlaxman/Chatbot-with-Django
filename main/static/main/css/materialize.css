@@ -3798,7 +3798,7 @@ small {
 
 .btn:focus, .btn-large:focus, .btn-small:focus,
 .btn-floating:focus {
-  background-color: #1d7d74; }
+  background-color: #b3b3b3; }
 
 .btn, .btn-large, .btn-small {
   text-decoration: none;
@@ -3868,7 +3868,7 @@ button.btn-floating {
   border: none; }
 
 .fixed-action-btn {
-  position: fixed;
+  position: inherit;
   right: 23px;
   bottom: 23px;
   padding-top: 15px;
