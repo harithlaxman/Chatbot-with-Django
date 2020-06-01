@@ -1,3 +1,4 @@
+<li><a href="/main/">Home</a></li>
 {% if user.is_authenticated %}
     <li><a href="/main/account/">{{user.username|title}}</a></li>
     <li><a href="/main/logout/">Logout</a></li>
@@ -5,4 +6,4 @@
     <li><a href="/main/login/">Login</a></li>
     <li><a href="/main/register/">Register</a></li>
 {% endif %}
-<li><a href="/main/">Home</a></li>
+

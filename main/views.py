@@ -22,8 +22,10 @@ def refresh(request, user_name):
     detail.save()
     return redirect("/main/")
 def home(request):
+    bro = {}
     if request.user.is_authenticated:
         user = request.user
+        bro = user.frienddetails_set.all()
     if request.method == "POST":
         form = UserName(request.POST)
         if form.is_valid():
@@ -51,7 +53,7 @@ def home(request):
     # email = details.objects.all
     # template = loader.get_template('/index.html')
     # context = {'email': email}
-    return render(request, 'main/home.html', {'form':form, 'bro':user.frienddetails_set.all()})
+    return render(request, 'main/home.html', {'form':form, 'bro':bro})
 
 def register(request):
     if request.method == 'POST':

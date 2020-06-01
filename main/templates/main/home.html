@@ -4,14 +4,15 @@
   <div class="container">
     <form method="POST">
       {% csrf_token %}
-      {{form}}
-      <button type="submit" class="btn btn-outline-info hoverable">Add Friend</button>
+      {{form.as_p}}
+      <button type="submit" class="btn">Add Friend</button>
+    </form>
       {% if bro %}
         <div class="row">
           {% for i in bro %}
-          <div class="col s12 m6">
-            <div class="card blue-grey darken-1 hoverable" style="border-radius: 10px; margin-left: -3%;background-color:#414345;">
-              <div class="card-content white-text" style="background-color: #414345;">
+          <div class="col s12 m4">
+            <div class="card grey-mine hoverable">
+              <div class="card-content bg-mine-text">
                 <span class="card-title">{{i.friend_name}}</span>
                 <ul>
                   <li>
@@ -21,16 +22,18 @@
                     Rating : {{i.rating}}
                   </li>
                 </ul>
+                <a href="/main/refresh/{{i.friend_user_name}}" style="color: #333333;">
+                <i class="material-icons" style="margin-left: 93%;">refresh</i>
+                </a>
               </div>
-              <div class="card-action">
-                <a href="/main/refresh/{{i.friend_user_name}}">Refersh</a>
-              </div>
+              <!-- <div class="card-action">
+                <a href="/main/refresh/{{i.friend_user_name}}"><i class="material-icons">refresh</i></a>
+              </div> -->
             </div>
           </div>
           {% endfor %}
         </div>
       {% endif %}
-    </form>
   </div>
   {% endif %}
 {% endblock %}
